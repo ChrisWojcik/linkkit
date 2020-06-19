@@ -74,6 +74,9 @@ const config = (env) => {
         },
         {
           test: /\.(png|gif|jpg|svg)$/,
+          exclude: [
+            path.resolve(__dirname, 'src/client/icons/svg')
+          ],
           use: {
             loader: 'url-loader',
             options: {
@@ -82,6 +85,25 @@ const config = (env) => {
               esModule: false
             }
           }
+        },
+        {
+          test: /\.svg$/,
+          include: [
+            path.resolve(__dirname, 'src/client/icons/svg')
+          ],
+          use: [
+            {
+              loader: 'svg-inline-loader'
+            },
+            {
+              loader: 'svgo-loader',
+              options: {
+                plugins: [
+                  { removeViewBox: false }
+                ]
+              }
+            }
+          ]
         }
       ]
     },
