@@ -2,15 +2,20 @@
   <a
     v-if="href"
     :href="href"
-    class="btn"
     :class="buttonClasses"
   >
     <slot></slot>
   </a>
+  <router-link
+    v-else-if="to"
+    :to="to"
+    :class="buttonClasses"
+  >
+    <slot></slot>
+  </router-link>
   <button
     v-else
     type="button"
-    class="btn"
     :class="buttonClasses"
   >
     <slot></slot>
@@ -21,6 +26,7 @@
 export default {
   props: {
     href: String,
+    to: String,
     variant: {
       type: String,
       default: 'primary'
@@ -32,6 +38,7 @@ export default {
   computed: {
     buttonClasses() {
       return {
+        'btn': true,
         'btn--primary': this.variant === 'primary',
         'btn--secondary': this.variant === 'secondary',
         'btn--text': this.variant === 'text',

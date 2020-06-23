@@ -1,20 +1,19 @@
 <template>
-  <div id="app">
-    <main-nav />
-    <main id="content">
-      <thread-list />
-    </main>
+  <div id="app" tabindex="-1">
+    <component :is="this.$route.meta.layout || 'div'">
+      <router-view />
+    </component>
   </div>
 </template>
 
 <script>
-import MainNav from '@/components/MainNav.vue';
-import ThreadList from '@/components/ThreadList.vue';
-
 export default {
-  components: {
-    MainNav,
-    ThreadList
+  watch: {
+    $route() {
+      this.$nextTick(function() {
+        this.$el.focus();
+      });
+    }
   }
-};
+}
 </script>

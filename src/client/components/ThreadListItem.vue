@@ -4,19 +4,19 @@
       <p class="threadlist-item__meta">
         Posted by u/{{author}}
         <span aria-hidden="true" class="threadlist-item__meta-separator">•</span>
-        <a :href="permalink" @click.stop>
+        <router-link :to="permalink" @click.native.stop>
           <time :datetime="created_at">{{timeAgo}}</time>
-        </a>
+        </router-link>
       </p>
       <h2 class="threadlist-item__title">
-        <a
-          :href="permalink"
+        <router-link
+          :to="permalink"
           class="threadlist-item__title-link"
           ref="link"
-          @click.stop
+          @click.native.stop
         >
           {{title}}
-        </a>
+        </router-link>
       </h2>
     </header>
     <div class="threadlist-item__body">
@@ -35,7 +35,7 @@
     <footer class="threadlist-item__footer">
       <div class="threadlist-item__footer-toolbar">
         <c-btn
-          :href="permalink"
+          :to="permalink"
           variant="text"
           size="sm"
           class="threadlist-item__footer-toolbar-btn"
@@ -88,7 +88,7 @@ export default {
         return;
       }
 
-      this.$refs.link.click();
+      this.$refs.link.$el.click();
     }
   },
   components: {

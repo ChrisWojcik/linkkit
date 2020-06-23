@@ -1,15 +1,8 @@
 <template>
   <header class="mainnav" tabindex="-1">
-    <a
-      href="#content"
-      class="mainnav__skip-link sr-only focusable"
-      @click="menuOpen = false"
-    >
-      Skip Navigation
-    </a>
     <nav class="mainnav__nav" aria-label="Main Navigation">
       <div class="mainnav__navbar">
-        <a href="/" class="mainnav__logo">Linkkit</a>
+        <router-link to="/" class="mainnav__logo">Linkkit</router-link>
         <button
           class="mainnav__menu-toggle"
           type="button"
@@ -31,11 +24,11 @@
         <div class="mainnav__menu-container">
           <ul class="mainnav__menu__list">
             <li class="mainnav__menu__list-item">
-              <a href="/" class="mainnav__menu__list-link">About</a>
+              <router-link to="/" class="mainnav__menu__list-link">About</router-link>
             </li>
           </ul>
           <c-btn
-            href="/log-in"
+            to="/log-in"
             class="mainnav__menu__btn"
             variant="secondary-white"
             rounded
@@ -44,7 +37,7 @@
             Log in
           </c-btn>
           <c-btn
-            href="/sign-up"
+            to="/sign-up"
             class="mainnav__menu__btn"
             rounded
             block
@@ -74,7 +67,7 @@ export default {
     }
   },
   watch: {
-    menuOpen: function (isOpen) {
+    menuOpen(isOpen) {
       if (isOpen) {
         document.body.classList.add(CLASSES.isOpen);
         document.addEventListener('focusin', this.restrictFocus, false);
@@ -86,7 +79,10 @@ export default {
         document.removeEventListener('keydown', this.handleKeydown, false);
         this.$refs.menuToggleBtn.focus();
       }
-    }
+    },
+    $route() {
+      this.menuOpen = false
+    },
   },
   methods: {
     restrictFocus(e) {
@@ -117,21 +113,13 @@ export default {
 
 <style lang="scss">
   body {
-    padding-top: 48px;
-
     &.js-mainnav-open {
       overflow: hidden;
     }
   }
 
   .mainnav {
-    &__skip-link.focusable {
-      &:focus {
-        position: absolute;
-        z-index: 1001;
-        background: $white;
-      }
-    }
+    height: 48px;
 
     &__navbar {
       height: 48px;
